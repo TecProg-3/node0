@@ -1,4 +1,4 @@
-```markdown
+
 # Proyecto básico con Node.js, TypeScript y Express
 
 ## 🛠️ Inicialización del Proyecto
