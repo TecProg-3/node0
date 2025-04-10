@@ -191,7 +191,7 @@ Crear una ruta que reciba un número y devuelva su **doble**.
 - `/doble/test` → "El parámetro no es un número" (Error 400)
 
 ---
-# Ruta POST cuerpo de la solicitud y los procesa:
+# Metodo POST:
 
 ---
 
@@ -251,4 +251,133 @@ Hola, Pedro!
 - Cómo usar el middleware `express.json()`.
 - Cómo responder con validación simple.
 
-¿Quieres que lo extienda para guardar los datos en memoria o validar con un esquema?
+
+---
+
+## 📦 ¿Qué es `express.json()`?
+
+`express.json()` es un **middleware integrado en Express** que permite al servidor **interpretar y procesar cuerpos de solicitud en formato JSON**.
+
+---
+
+## ⚙️ ¿Qué hace exactamente?
+
+Cuando un cliente (como Postman, curl o una aplicación web) envía una solicitud con `Content-Type: application/json`, este middleware:
+
+- **Lee el cuerpo (body)** de la solicitud.
+- **Convierte el JSON en un objeto JavaScript**.
+- Lo deja disponible en `req.body`.
+
+Sin este middleware, `req.body` estaría **indefinido** o **vacío** en solicitudes POST/PUT con contenido JSON.
+
+---
+
+# Uso de interfaces para JSON
+```TypeScript
+import express,{Request,Response} from "express";
+
+interface data{
+    a:number;
+    b:number
+}
+
+const server = express();
+const port = 3000;
+
+server.use(express.json())
+
+server.post("/",(req:Request, res:Response) =>{
+    const x:data = req.body;
+    
+    console.log();
+    res.end();
+});
+
+server.listen(port,()=>{
+    console.log(`Servidor corriendo en puerto ${port}`)
+});
+```
+
+
+## 📋 Evaluación del contexto actual
+
+Hasta ahora, estás trabajando correctamente con:
+
+- Servidor Express en TypeScript.
+- Tipado de `Request` y `Response`.
+- Uso de parámetros en rutas `GET`.
+- Validación básica de datos (números, strings).
+- Uso de `express.json()` para manejar `POST`.
+- Interfaces TypeScript para tipar `req.body`.
+
+
+
+---
+
+## 🧪 Ejercicios con GET y POST
+
+
+### 🔹 **Ejercicio 1: GET**  
+📌 *Ruta que devuelve el cuadrado de un número positivo mayor que 0 recibido como parámetro.*
+
+- Ruta: `GET /cuadrado/:numero`
+- Validar que `numero` es un número.
+- Responder con el resultado (`numero * numero`) en HTML.
+- Si no es un número, responder con error 400.
+
+---
+
+### 🔸 **Ejercicio 2: POST**  
+📌 *Ruta que recibe un nombre y devuelve un saludo.*
+
+- Ruta: `POST /saludo`
+- `req.body`: `{ nombre: string }`
+- Validar que el nombre existe.
+- Responder con: "Hola, [nombre]"
+
+---
+
+### 🔹 **Ejercicio 3: GET**  
+📌 *Ruta que recibe edad por parámetro y devuelve una categoría: niño, joven, adulto o mayor.*
+
+- Ruta: `GET /categoria/:edad`
+- Validar que edad sea número.
+- Lógica:
+  - `< 13`: niño
+  - `13-17`: joven
+  - `18-64`: adulto
+  - `65+`: mayor
+- Responder con texto en HTML.
+
+---
+
+### 🔸 **Ejercicio 4: POST con interfaz**  
+📌 *Recibir datos de usuario y validar el esquema.*
+
+- Ruta: `POST /usuario`
+- `req.body`: `{ nombre: string, correo: string, edad: number }`
+- Validar que todos los campos existen y sean del tipo correcto.
+- Responder con un resumen tipo:
+
+```html
+Usuario recibido: Juan (30 años) - juan@correo.com
+```
+
+---
+
+### 🔹 **Ejercicio 5: (Nivel Avanzado – GET y POST combinados)**  
+📌 *Simular una pequeña lista de tareas (in-memory).*
+
+#### a. `POST /tarea`
+- Recibe en `req.body`: `{ titulo: string, descripcion: string }`
+- Guarda la tarea en una lista en memoria.
+
+#### b. `GET /tareas`
+- Devuelve todas las tareas agregadas.
+
+#### c. `GET /tarea/:id`
+- Devuelve una tarea específica por índice.
+- Validar que el índice existe.
+
+---
+
