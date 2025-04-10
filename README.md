@@ -191,11 +191,12 @@ Crear una ruta que reciba un número y devuelva su **doble**.
 - `/doble/test` → "El parámetro no es un número" (Error 400)
 
 ---
+
 # Metodo POST:
 
 ---
 
-## ✍️ Código TypeScript: Ruta POST
+## ✍️ Código TypeScript: Rutas POST
 
 ```ts
 import express, { Request, Response } from "express";
@@ -272,7 +273,7 @@ Sin este middleware, `req.body` estaría **indefinido** o **vacío** en solicitu
 
 ---
 
-# Uso de interfaces para JSON
+# Uso de interfaces parametros JSON en POST
 ```TypeScript
 import express,{Request,Response} from "express";
 
