@@ -1,4 +1,4 @@
-
+  
 # Proyecto básico con Node.js, TypeScript y Express
 
 ## 🛠️ Inicialización del Proyecto
@@ -191,3 +191,64 @@ Crear una ruta que reciba un número y devuelva su **doble**.
 - `/doble/test` → "El parámetro no es un número" (Error 400)
 
 ---
+# Ruta POST cuerpo de la solicitud y los procesa:
+
+---
+
+## ✍️ Código TypeScript: Ruta POST
+
+```ts
+import express, { Request, Response } from "express";
+
+const app = express();
+const port = 3000;
+
+// Middleware para procesar JSON en el body
+app.use(express.json());
+
+// Ruta POST
+app.post("/saludo", (req: Request, res: Response) => {
+    const { nombre } = req.body;
+
+    if (!nombre) {
+        return res.status(400).send("Falta el campo 'nombre'");
+    }
+
+    res.send(`Hola, ${nombre}!`);
+});
+
+app.listen(port, () => {
+    console.log(`Servidor corriendo en http://localhost:${port}`);
+});
+```
+
+---
+
+## 🧪 Cómo probarlo
+
+Puedes usar **curl**, **Postman**, o cualquier cliente HTTP. Por ejemplo:
+
+### En terminal:
+
+```bash
+curl -X POST http://localhost:3000/saludo \
+  -H "Content-Type: application/json" \
+  -d '{"nombre": "Pedro"}'
+```
+
+### Resultado esperado:
+
+```
+Hola, Pedro!
+```
+
+---
+
+## ✅ Qué demuestra este ejemplo
+
+- Cómo usar `app.post()` en Express.
+- Cómo recibir datos en formato JSON desde el cliente.
+- Cómo usar el middleware `express.json()`.
+- Cómo responder con validación simple.
+
+¿Quieres que lo extienda para guardar los datos en memoria o validar con un esquema?
