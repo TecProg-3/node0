@@ -117,7 +117,7 @@ app.get("/:id", (req: Request , res:Response) => {
     try {
         let id:number = Number( req.params.id)
         if (Number.isNaN(id)){
-            throw new Error("El parametro no es un numero")
+            throw new Error("El parámetro no es un número")
         }
         msj = id;
     }
@@ -192,7 +192,7 @@ Crear una ruta que reciba un número y devuelva su **doble**.
 
 ---
 
-# Metodo POST:
+# Método POST:
 
 ---
 
@@ -212,10 +212,11 @@ app.post("/saludo", (req: Request, res: Response) => {
     const { nombre } = req.body;
 
     if (!nombre) {
-        return res.status(400).send("Falta el campo 'nombre'");
+      res.status(400).send("Falta el campo 'nombre'");
     }
-
-    res.send(`Hola, ${nombre}!`);
+    else{
+      res.send(`Hola, ${nombre}!`);
+    }
 });
 
 app.listen(port, () => {
